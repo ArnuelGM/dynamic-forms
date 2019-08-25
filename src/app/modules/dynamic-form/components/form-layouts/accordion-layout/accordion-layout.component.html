@@ -1,0 +1,26 @@
+<div class="row">
+	<div class="col">
+		<ngb-accordion activeIds="ngb-panel-0">
+			<ngb-panel
+				*ngFor="let group of groups">
+				<ng-template ngbPanelTitle >
+					<h5 class="card-title text-capitalize m-0">{{ group.label }}</h5>
+				</ng-template>
+				<ng-template ngbPanelContent>
+					<div class="form-row">
+						<div *ngFor="let field of group.fields"
+							[ngClass]="field.colClass || columnsClassLayout"
+							[class.d-none]="field?.hidden">
+							<app-form-field-fabric
+								[field]="field"
+								[formGroup]="formGroup"
+								[formManager]="formManager"
+								[culumnsClassLayout]="columnsClassLayout"
+							></app-form-field-fabric>
+						</div>
+					</div>
+				</ng-template>
+			</ngb-panel>
+		</ngb-accordion>
+	</div>
+</div>

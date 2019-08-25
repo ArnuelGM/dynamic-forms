@@ -1,0 +1,35 @@
+<div class="form-group" [formGroup]="formGroup" [ngClass]="field?.custom?.divContentClass">
+	<label [attr.for]="field?.name" *ngIf="field?.label">{{ field?.label }}</label>
+	<!-- CHECKBOX -->
+	<div>
+		<div class="custom-control custom-checkbox"
+			[ngClass]="{'custom-control-inline': field?.inline}"
+			*ngFor="let op of _options.controls; let index = index;">
+
+			<input
+				type="checkbox"
+				[formControl]="op"
+				[bindEvents]="field?.actions"
+				[formManager]="formManager"
+				class="custom-control-input"
+				[value]="field?.options[index].value"
+				[class.is-invalid]="touched && !isValid"
+				[checked]="field?.options[index].selected"
+				[id]="'check_' + field?.name + '_' + index"
+				[attr.name]="'check_' + field?.name + '_' + index"
+				[bindEvents]="field?.actions && [field?.actions[index]]">
+
+			<label class="custom-control-label" [attr.for]="'check_' + field?.name + '_' + index">
+				{{ field?.options[index].label }}
+			</label>
+		</div>
+	</div>
+	<div class="invalid-feedback d-block" *ngIf="touched && !isValid">
+		{{ field?.custom.errorText }}
+	</div>
+	<small class="form-text text-muted"
+		*ngIf="field?.custom?.helpText && !(touched && !isValid)">
+		{{field?.custom?.helpText}}
+	</small>
+	<!-- CHECKBOX -->
+</div>

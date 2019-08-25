@@ -1,0 +1,44 @@
+<div class="form-group" [formGroup]="formGroup" [ngClass]="field?.custom?.divContentClass">
+	<label [attr.for]="field?.name" *ngIf="field?.label">{{ field?.label }}</label>
+	<!-- FILE -->
+	<div class="input-group">
+		<has-action-button
+			class="input-group-prepend"
+			*ngIf="field?.custom?.hasAction && field?.custom?.hasActionOptions.side === 'left'"
+			[custom]="field.custom"
+			[formManager]="formManager"
+		></has-action-button>
+		<div class="custom-file" [title]="field?.label">
+			<input
+				type="file"
+				[id]="field?.name"
+				[title]="field?.label"
+				[attr.name]="field?.name"
+				class="custom-file-input"
+				[formManager]="formManager"
+				[multiple]="field?.multiple"
+				[attr.disabled]="field?.disabled"
+				[attr.readonly]="field?.readonly"
+				[bindEvents]="field?.actions"
+				[formControlName]="field?.name"
+				[class.is-invalid]="touched && !isValid" #fileControl>
+			<label [title]="field?.label" class="custom-file-label" [attr.for]="field?.name">
+				{{ getFileNames(fileControl) }}
+			</label>
+		</div>
+		<has-action-button
+			class="input-group-append"
+			*ngIf="field?.custom?.hasAction && field?.custom?.hasActionOptions.side === 'right'"
+			[custom]="field.custom"
+			[formManager]="formManager"
+		></has-action-button>
+	</div>
+	<div class="invalid-feedback d-block" *ngIf="touched && !isValid">
+		{{ field?.custom.errorText }}
+	</div>
+	<small class="form-text text-muted"
+		*ngIf="field?.custom?.helpText && !(touched && !isValid)">
+		{{field?.custom?.helpText}}
+	</small>
+	<!-- FIN FILE -->
+</div>

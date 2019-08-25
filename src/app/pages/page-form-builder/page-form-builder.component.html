@@ -1,0 +1,90 @@
+<div class="container my-4">
+	<div class="row">
+
+		<div class="col-lg-8">
+			<app-card>
+				<h5 class="card-title">Construccion de formularios</h5>
+				<!-- <div class="card-body"> -->
+					<app-form-constructor
+						*ngIf="_pageService._manager"
+						[formManager]="_pageService._manager"
+						textSubmitButton="Guardar"
+						buttonSubmitClass="btn-block"
+						[enableSubmitManager]="true"
+						columnsClass="col-12 col-sm-6 col-lg-4"
+						[formLayout]="_pageService.formLayout"
+						[showSubmitButton]="false"
+						[id]="'dynamic_form_builder'"
+					></app-form-constructor>
+				<!-- </div> -->
+			</app-card>
+		</div>
+
+		<!-- Listado de Controles -->
+		<div class="col-lg-4">
+			<app-card>
+				<h5 class="card-title">Controles</h5>
+				<table class="table table-striped table-sm">
+					<thead>
+						<tr><th>Nombre</th><th>Tipo</th></tr>
+					</thead>
+					<tbody>
+						<tr *ngFor="let c of _pageService.controles[0].fields; let index = index;">
+							<td>
+								<a href="javascript:void(0)"
+									class="btn btn-link"
+									(click)="_pageService.patchForm(c)">
+									{{ c.name || c.label }}
+								</a>
+							</td>
+							<td>
+								{{ c.controlType }}
+								<a class="btn btn-link" href="javascript:void(0)"
+									(click)="_pageService.deleteControl(index)">
+									X
+								</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+
+				<!-- Botón vista previa -->
+				<button class="btn btn-success animated" type="button" *ngIf="_pageService.controles[0].fields.length > 0"
+					(click)="_pageService.previewForm(modalPreview)"
+				>Vista previa</button>
+				<!-- Fin botón vista previa -->
+			</app-card>
+			<app-card>
+				<h5 class="card-title">Form Data</h5>
+				<div class="card-body">
+					<pre>{{ _pageService._manager.formGroup.value | json }}</pre>
+				</div>
+			</app-card>
+		</div>
+		<!-- Fin listado de controles -->
+
+	</div>
+</div>
+
+<!-- Vista previa formulario -->
+<ng-template #modalPreview let-modal>
+	<div class="modal-header">
+		<h4 class="modal-title" id="modalPreview">Vista previa formulario</h4>
+		<button
+			(click)="modal.dismiss('Cross click')"
+			type="button"
+			class="close"
+			aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		</button>
+	</div>
+	<div class="modal-body">
+		<app-card [cardClass]="'shadow'" *ngIf="_pageService.formComponentPrev">
+			<app-dynamic
+				[component]="_pageService.formComponentPrev"
+				[data]="_pageService.formComponentPrevData"
+			></app-dynamic>
+		</app-card>
+	</div>
+</ng-template>
+<!-- Fin vista previa formulario -->

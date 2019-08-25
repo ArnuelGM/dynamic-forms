@@ -1,0 +1,27 @@
+<form [formGroup]="formGroup" (submit)="handlerSubmit($event)" [id]="_id" novalidate>
+
+	<fieldset>
+		<legend *ngIf="title">{{ title }}</legend>
+		<hr *ngIf="title">
+
+		<app-dynamic
+			[component]="_formLayout"
+			[data]="{
+				formGroup: formGroup,
+				formManager: formManager,
+				columnsClassLayout: columnsClass }"
+		></app-dynamic>
+
+	</fieldset>
+
+	<div class="form-group" *ngIf="showSubmitButton">
+		<div class="d-flex justify-content-end">
+			<button type="submit" class="btn m-0" [ngClass]="buttonSubmitClass">{{ textSubmitButton || 'Submit' }}</button>
+		</div>
+	</div>
+
+	<!-- opciones de vista de desarrollo -->
+	<div class="form-group " *ngIf="devMode">
+		<pre>{{ formGroup.value | json }}</pre>
+	</div>
+</form>

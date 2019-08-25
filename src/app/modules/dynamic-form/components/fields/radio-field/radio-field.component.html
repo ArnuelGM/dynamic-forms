@@ -1,0 +1,33 @@
+<div class="form-group" [formGroup]="formGroup" [ngClass]="field?.custom?.divContentClass">
+	<label [attr.for]="field?.name" *ngIf="field?.label">{{ field?.label }}</label>
+	<!-- FIN RADIO -->
+	<div>
+		<div
+			class="custom-control custom-radio"
+			[ngClass]="{'custom-control-inline': field?.inline}"
+			*ngFor="let op of field?.options; let index = index;">
+			<input
+				type="radio"
+				[attr.name]="field?.name"
+				[formManager]="formManager"
+				class="custom-control-input"
+				[attr.disabled]="field?.disabled"
+				[bindEvents]="field?.actions"
+				[attr.readonly]="field?.readonly"
+				[formControlName]="field?.name"
+				[id]="'radio_' + field?.name + index"
+				[value]="field?.options[index].value"
+				[class.is-invalid]="touched && !isValid"
+				[checked]="field?.options[index].selected">
+			<label class="custom-control-label" [attr.for]="'radio_' + field?.name + index">{{ op.label }}</label>
+		</div>
+	</div>
+	<div class="invalid-feedback d-block" *ngIf="touched && !isValid">
+		{{ field?.custom.errorText }}
+	</div>
+	<small class="form-text text-muted"
+		*ngIf="field?.custom?.helpText && !(touched && !isValid)">
+		{{field?.custom?.helpText}}
+	</small>
+	<!-- FIN RADIO -->
+</div>

@@ -1,0 +1,16 @@
+<div class="form-group" [formGroup]="formGroup" [ngClass]="field?.custom?.divContentClass">
+	<label [attr.for]="field?.name" *ngIf="field?.label">{{ field?.label }}</label>
+	<div class="btn-group" [ngClass]="field?.custom?.actionsClass">
+		<ng-container *ngFor="let action of field?.options; let index = index;">
+			<button class="btn"
+				[ngClass]="field?.custom.actionsConfiguration[index].class"
+				[type]="field?.custom.actionsConfiguration[index].type"
+				[title]="action.label"
+				[bindEvents]="[field?.actions[index]]"
+				[attr.disabled]="field?.custom.actionsConfiguration[index].disabled"
+				[formManager]="formManager">
+				{{ action.label }}
+			</button>
+		</ng-container>
+	</div>
+</div>

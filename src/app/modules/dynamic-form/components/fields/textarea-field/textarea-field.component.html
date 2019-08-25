@@ -1,0 +1,25 @@
+<div class="form-group" [formGroup]="formGroup" [ngClass]="field?.custom?.divContentClass">
+	<label [attr.for]="field?.name" *ngIf="field?.label">{{ field?.label }}</label>
+	<!-- TEXTAREA -->
+	<textarea
+		[id]="field?.name"
+		class="form-control"
+		[title]="field?.label"
+		[attr.name]="field?.name"
+		[formManager]="formManager"
+		[bindEvents]="field?.actions"
+		[attr.disabled]="field?.disabled"
+		[attr.readonly]="field?.readonly"
+		[value]="field?.value || null"
+		[attr.placeholder]="field?.placeholder"
+		[class.is-invalid]="touched && !isValid"
+		[formControlName]="field?.name"></textarea>
+	<div class="invalid-feedback d-block" *ngIf="touched && !isValid">
+		{{ field?.custom.errorText }}
+	</div>
+	<small class="form-text text-muted"
+		*ngIf="field?.custom?.helpText && !(touched && !isValid)">
+		{{field?.custom?.helpText}}
+	</small>
+	<!-- FIN TEXTAREA -->
+</div>

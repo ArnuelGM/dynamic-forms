@@ -1,0 +1,63 @@
+<div class="form-group" [formGroup]="formGroup" [ngClass]="field?.custom?.divContentClass">
+	<label [attr.for]="field?.name" *ngIf="field?.label">{{ field?.label }}</label>
+	<!-- DROPDOWN -->
+	<div class="input-group">
+		<has-action-button
+			class="input-group-prepend"
+			*ngIf="field?.custom?.hasAction && field?.custom?.hasActionOptions.side === 'left'"
+			[custom]="field.custom"
+			[formManager]="formManager"
+		></has-action-button>
+		<select
+			[id]="field?.name"
+			class="form-control"
+			[title]="field?.label"
+			*ngIf="field?.multiple"
+			[attr.name]="field?.name"
+			[formManager]="formManager"
+			[class.is-invalid]="touched && !isValid"
+			[multiple]="field?.multiple"
+			[attr.disabled]="field?.disabled"
+			[attr.readonly]="field?.readonly"
+			[bindEvents]="field?.actions"
+			[formControlName]="field?.name">
+			<option *ngFor="let op of field?.options; let index = index;"
+				[ngValue]="op.value"
+				[attr.value]="op.value">
+				{{ op.label }}
+			</option>
+		</select>
+		<select
+			[id]="field?.name"
+			class="form-control"
+			[title]="field?.label"
+			*ngIf="!field?.multiple"
+			[attr.name]="field?.name"
+			[formManager]="formManager"
+			[attr.disabled]="field?.disabled"
+			[attr.readonly]="field?.readonly"
+			[class.is-invalid]="touched && !isValid"
+			[bindEvents]="field?.actions"
+			[formControlName]="field?.name">
+			<option *ngFor="let op of field?.options; let index = index;"
+				[ngValue]="op.value"
+				[attr.value]="op.value">
+				{{ op.label }}
+			</option>
+		</select>
+		<has-action-button
+			class="input-group-append"
+			*ngIf="field?.custom?.hasAction && field?.custom?.hasActionOptions.side === 'right'"
+			[custom]="field.custom"
+			[formManager]="formManager"
+		></has-action-button>
+	</div>
+	<div class="invalid-feedback d-block" *ngIf="touched && !isValid">
+		{{ field?.custom.errorText }}
+	</div>
+	<small class="form-text text-muted"
+		*ngIf="field?.custom?.helpText && !(touched && !isValid)">
+		{{field?.custom?.helpText}}
+	</small>
+	<!-- FIN DROPDOWN -->
+</div>

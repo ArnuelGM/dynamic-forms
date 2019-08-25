@@ -1,0 +1,26 @@
+<div class="row">
+	<div class="col">
+		<ngb-tabset [destroyOnHide]="false" type="pills">
+			<ngb-tab
+				*ngFor="let group of groups">
+				<ng-template ngbTabTitle>
+					<label class="m-0 p-0">{{ group.label }}</label>
+				</ng-template>
+				<ng-template ngbTabContent>
+					<div class="form-row mt-3">
+						<div *ngFor="let field of group.fields"
+							[class.d-none]="field?.hidden"
+							[ngClass]="field.colClass || columnsClassLayout">
+							<app-form-field-fabric
+								[field]="field"
+								[formGroup]="formGroup"
+								[formManager]="formManager"
+								[culumnsClassLayout]="columnsClassLayout"
+							></app-form-field-fabric>
+						</div>
+					</div>
+				</ng-template>
+			</ngb-tab>
+		</ngb-tabset>
+	</div>
+</div>

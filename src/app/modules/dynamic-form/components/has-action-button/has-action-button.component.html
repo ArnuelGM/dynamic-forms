@@ -1,0 +1,7 @@
+<button *ngIf="custom?.hasAction"
+	class="btn"
+	[ngClass]="custom?.hasActionOptions.class"
+	[formManager]="formManager"
+	[bindEvents]="custom?.hasActionOptions.action && [custom?.hasActionOptions.action]">
+	{{ custom?.hasActionOptions.label }}
+</button>

@@ -1,0 +1,17 @@
+<div class="form-row" *ngFor="let group of groups">
+	<div class="col-12">
+		<app-group-divider
+			[label]="group.label"
+		></app-group-divider>
+	</div>
+	<div *ngFor="let field of group.fields"
+		[class.d-none]="field.hidden"
+		[ngClass]="field.colClass || columnsClassLayout">
+		<app-form-field-fabric
+			[field]="field"
+			[formGroup]="formGroup"
+			[formManager]="formManager"
+			[culumnsClassLayout]="columnsClassLayout"
+		></app-form-field-fabric>
+	</div>
+</div>

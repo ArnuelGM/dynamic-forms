@@ -1,0 +1,31 @@
+<div class="row">
+	<div class="col-12 col-md-4">
+		<ul class="nav flex-columns nav-pills">
+			<li style="width: 100%;">
+				<a class="nav-link text-left" (click)="tabActive = index;"
+					*ngFor="let group of groups; let index = index;"
+					[class.active]="tabActive == index">
+					<label class="m-0 p-0">{{ group.label }}</label>
+				</a>
+			</li>
+		</ul>
+	</div>
+	<div class="col-12 col-md-8">
+		<div class="tab-content">
+			<div *ngFor="let group of groups; let index = index;"
+				class="tab-pane" [class.active]="tabActive == index">
+				<div class="form-row">
+					<div [class.d-none]="field?.hidden" [ngClass]="field.colClass || columnsClassLayout"
+						*ngFor="let field of group.fields">
+						<app-form-field-fabric
+							[field]="field"
+							[formGroup]="formGroup"
+							[formManager]="formManager"
+							[culumnsClassLayout]="columnsClassLayout"
+						></app-form-field-fabric>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
